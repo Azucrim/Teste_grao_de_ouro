@@ -1,0 +1,88 @@
+﻿@page "/"
+@page "/Tarefa"
+
+@inject IJSRuntime JSRuntime
+
+<h3>Tarefas Pendentes (@tarefas.Count(tarefa=>!tarefa.estado))</h3>
+
+<ul>
+    @foreach (var tarefa in tarefas)
+    {
+        if (tarefa.estado == false)
+        {
+            <li>
+
+                <input type="checkbox" @bind="tarefa.estado" />
+                <input @bind="tarefa.nome"/>
+
+            </li>
+        }
+    }
+</ul>
+
+<h3>Tarefas Concluidas (@tarefas.Count(tarefa=>tarefa.estado))</h3>
+
+<ul>
+    @foreach (var tarefa in tarefas)
+    {
+
+        if (tarefa.estado == true)
+        {
+            <li>
+            @tarefa.nome
+            </li>
+        }        
+
+    }
+</ul>
+
+<input placeholder="Tarefa Pendente" @bind="novaTarefa"/>
+<button @onclick="AddTodo">Add todo</button>
+
+
+
+@code {
+
+    private List<ItemTarefa> tarefas = new();
+
+    private string? novaTarefa;
+
+    private async void AddTodo()
+    {
+        if (itsnew(novaTarefa) == false)
+        {
+            novaTarefa = null; 
+            await Alert("Tarefa ja existe");
+        }
+
+        if (!string.IsNullOrWhiteSpace(novaTarefa))
+        {
+            tarefas.Add(new ItemTarefa { nome = novaTarefa });
+            novaTarefa = string.Empty;
+        }
+        
+    }
+
+    private bool itsnew(string newstring)
+    {
+        bool aux = true;
+
+        foreach (var tarefa in tarefas)
+        {
+            if (tarefa.nome == newstring)
+            {                
+                return false;
+            }
+        }
+
+        return aux;
+    }
+
+
+    private async Task Alert(string message)
+    {
+        await JSRuntime.InvokeAsync<object>("Alert", message);
+    }
+
+
+}
