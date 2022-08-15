@@ -26,6 +26,21 @@ namespace API.Services
             Tarefas.Add(tarefa);
         }
 
+        public static bool itsnew(ItemTarefa newtarefa)
+        {
+            bool aux = true;
+
+            foreach (var tarefa in Tarefas)
+            {
+                if (tarefa.nome == newtarefa.nome)
+                {
+                    return false;
+                }
+            }
+
+            return aux;
+        }
+
         public static List<ItemTarefa> GetAllDone()
         {
             List<ItemTarefa> tarefax = Tarefas;

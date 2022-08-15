@@ -15,5 +15,9 @@
     <ProjectReference Include="..\Shared\TesteApp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>
