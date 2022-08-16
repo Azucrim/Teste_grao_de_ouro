@@ -91,7 +91,11 @@ namespace API.Controllers
             var ToUpdate = _service.GetById(id);
 
             if (ToUpdate is not null)
-            {                
+            {
+                if (_service.itsnew(tarefa) == false)
+                {
+                    return BadRequest("Já existe");
+                }
                 _service.Update(id,tarefa);
                 return NoContent();
             }
