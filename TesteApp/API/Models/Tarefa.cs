@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TesteApp.Client
+namespace API.Models
 {
-    public class ItemTarefa
+    public class Tarefa
     {
-
         public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string? nome { get; set; }
         public bool estado { get; set; } = false;
+
     }
 }

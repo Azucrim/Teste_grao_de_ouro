@@ -8,9 +8,10 @@ namespace API.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class TarefasController : ControllerBase
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class TarefasControllers : ControllerBase
     {
-        public TarefasController()
+        public TarefasControllers()
         {
         }
 

@@ -1,6 +1,8 @@
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using API.Services;
+using API.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +39,10 @@ builder.Services.AddSwaggerGen(options =>
 
 });
 
+// Add the TarefaContext
+builder.Services.AddSqlite<TarefaContext>("Data Source=APITarefa.db");
+
+builder.Services.AddScoped<TarefaService>();
 
 var app = builder.Build();
 
@@ -55,5 +61,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.CreateDbIfNotExists();
 
 app.Run();
